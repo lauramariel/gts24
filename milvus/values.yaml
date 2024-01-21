@@ -1,0 +1,60 @@
+#ATTU Frontend
+attu:
+  enabled: true
+  name: attu
+  service:
+    annotations: {}
+    labels: {}
+    type: LoadBalancer
+    port: 3000
+
+# imagePullSecrets, most images are hosted on docker.io
+# image:
+#   all:
+#     pullSecrets:
+#     - regcred
+# etcd:
+#   image:
+#     pullSecrets:
+#     - regcred
+
+# Milvus Cluster Mode
+dataCoordinator:
+  replicas: 2
+  activeStandby: 
+    enabled: True
+dataNode:
+  replicas: 2
+indexCoordinator:
+  replicas: 2
+indexNode:
+  replicas: 2
+queryCoordinator:
+  replicas: 2
+  activeStandby: 
+    enabled: True
+queryNode:
+  replicas: 2
+rootCoordinator:
+  replicas: 2
+  activeStandby: 
+    enabled: True
+
+# Exposing Milvus externally, only for migration phase
+service:
+  type: LoadBalancer
+
+# Disable MinIO and configuring External S3
+minio:
+  enabled: false
+externalS3:
+  enabled: true
+  host: "host"
+  port: "80"
+  accessKey: "abc"
+  secretKey: "abc"
+  useSSL: false
+  bucketName: "gts-milvus"
+  rootPath: ""
+  region: "us-east-1"
+  useVirtualHost: false
